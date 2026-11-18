@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore: [ '**.md' ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      bcVersion:
+        description: 'BC major version to compile against'
+        required: false
+        default: '25'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  BC_VERSION: ${{ inputs.bcVersion || '25' }}
+  BC_COUNTRY: w1
+
+jobs:
+  validate:
+    name: Validate dependencies
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve build order (fails on circular deps)
+        shell: pwsh
+        run: ./scripts/Get-AppBuildOrder.ps1
+
+  build:
+    name: Compile apps
+    needs: validate
+    runs-on: windows-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache BC artifacts
+        uses: actions/cache@v4
+        with:
+          path: C:\bcartifacts.cache
+          key: bcartifacts-${{ env.BC_COUNTRY }}-${{ env.BC_VERSION }}-${{ runner.os }}
+
+      - name: Install BcContainerHelper
+        shell: pwsh
+        run: |
+          Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+          Install-Module BcContainerHelper -Force -AllowClobber -Scope CurrentUser
+          Get-Module BcContainerHelper -ListAvailable | Select-Object Name, Version
+
+      - name: Compile (CodeCop + UICop)
+        shell: pwsh
+        run: >
+          ./scripts/Invoke-CIBuild.ps1
+          -BcVersion '${{ env.BC_VERSION }}'
+          -Country '${{ env.BC_COUNTRY }}'
+          -BuildNumber ${{ github.run_number }}
+          -OutputFolder "$env:GITHUB_WORKSPACE\output"
+
+      - name: Upload apps
+        uses: actions/upload-artifact@v4
+        with:
+          name: Apps-${{ github.run_number }}
+          path: output/Apps/*.app
+          if-no-files-found: error
+
+      - name: Upload test apps
+        uses: actions/upload-artifact@v4
+        with:
+          name: TestApps-${{ github.run_number }}
+          path: output/TestApps/*.app
+          if-no-files-found: warn
