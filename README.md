@@ -54,7 +54,18 @@ Generate it from the app.json files:
 2. Add a `.vscode/launch.json` per app pointing at your sandbox/container (git-ignored).
 3. Download symbols, then publish in build order.
 
-## Next step: CI/CD
+## CI (`.github/workflows/ci.yml`)
+
+Runs on push/PR to `main` and manually (pick BC version).
+
+| Job | Runner | What it does |
+|-----|--------|--------------|
+| validate | ubuntu-latest | `Get-AppBuildOrder.ps1` — fails on circular deps |
+| build | windows-latest | `Invoke-CIBuild.ps1` — BcContainerHelper `Run-AlPipeline` with compiler folder (no container), CodeCop + UICop, uploads `.app` artifacts |
+
+App version = `1.0.<run_number>.0`. Run locally: `./scripts/Invoke-CIBuild.ps1 -BcVersion 25`.
+
+## Next step: CD
 
 Repo is laid out so either option works:
 - **AL-Go for GitHub** — add `.AL-Go/settings.json` with `appFolders` / `testFolders`; AL-Go resolves the order itself.
