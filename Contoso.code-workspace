@@ -1,0 +1,18 @@
+{
+  "folders": [
+    { "path": "Contoso.Core" },
+    { "path": "Contoso.Customer" },
+    { "path": "Contoso.Item" },
+    { "path": "Contoso.Sales" },
+    { "path": "Contoso.Reporting" },
+    { "path": "Contoso.Core.Test" },
+    { "path": "Contoso.Sales.Test" },
+    { "path": ".", "name": "repo-root" }
+  ],
+  "settings": {
+    "al.enableCodeAnalysis": true,
+    "al.codeAnalyzers": [ "${CodeCop}", "${UICop}" ],
+    "al.packageCachePath": "../.alpackages",
+    "al.incrementalBuild": true
+  }
+}

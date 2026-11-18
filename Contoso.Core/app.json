@@ -1,0 +1,25 @@
+{
+  "id": "6a1f3c2e-1b4d-4e8a-9c71-0d2f5e6a7b01",
+  "name": "Contoso Core",
+  "publisher": "Contoso Dummy",
+  "version": "1.0.0.0",
+  "brief": "Shared foundation: setup, enums, logging.",
+  "description": "Base app with no dependencies. Every other Contoso app builds on this.",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "25.0.0.0",
+  "application": "25.0.0.0",
+  "idRanges": [ { "from": 50100, "to": 50149 } ],
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": true,
+    "includeSourceInSymbolFile": true
+  },
+  "runtime": "14.0",
+  "features": [ "NoImplicitWith" ]
+}

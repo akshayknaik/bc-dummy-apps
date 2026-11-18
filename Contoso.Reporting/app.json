@@ -1,0 +1,44 @@
+{
+  "id": "6a1f3c2e-1b4d-4e8a-9c71-0d2f5e6a7b05",
+  "name": "Contoso Reporting",
+  "publisher": "Contoso Dummy",
+  "version": "1.0.0.0",
+  "brief": "Loyalty query and API.",
+  "description": "Query and API page over loyalty data. Depends on Contoso Sales (top of the chain).",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "dependencies": [
+    {
+      "id": "6a1f3c2e-1b4d-4e8a-9c71-0d2f5e6a7b01",
+      "name": "Contoso Core",
+      "publisher": "Contoso Dummy",
+      "version": "1.0.0.0"
+    },
+    {
+      "id": "6a1f3c2e-1b4d-4e8a-9c71-0d2f5e6a7b02",
+      "name": "Contoso Customer",
+      "publisher": "Contoso Dummy",
+      "version": "1.0.0.0"
+    },
+    {
+      "id": "6a1f3c2e-1b4d-4e8a-9c71-0d2f5e6a7b04",
+      "name": "Contoso Sales",
+      "publisher": "Contoso Dummy",
+      "version": "1.0.0.0"
+    }
+  ],
+  "screenshots": [],
+  "platform": "25.0.0.0",
+  "application": "25.0.0.0",
+  "idRanges": [ { "from": 50300, "to": 50349 } ],
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": true,
+    "includeSourceInSymbolFile": true
+  },
+  "runtime": "14.0",
+  "features": [ "NoImplicitWith" ]
+}

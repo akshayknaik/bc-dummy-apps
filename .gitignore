@@ -1,0 +1,17 @@
+# AL build output / symbols
+*.app
+.alpackages/
+.alcache/
+.snapshots/
+rad.json
+*.g.xlf
+TestResults*.xml
+output/
+
+# VS Code local
+.vscode/launch.json
+.vscode/*.local.json
+
+# OS
+.DS_Store
+Thumbs.db
